@@ -1,5 +1,7 @@
 package ru.job4j.di;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 /**
  * Main.
  *
@@ -9,10 +11,13 @@ package ru.job4j.di;
  */
 public class Main {
     public static void main(String[] args) {
-        Context context = new Context();
-        context.reg(Store.class);
-        context.reg(ConsoleInput.class);
-        context.reg(StartUI.class);
-        StartUI ui = context.get(StartUI.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.refresh();
+        context.register(Store.class);
+        context.register(ConsoleInput.class);
+        context.register(StartUI.class);
+        StartUI ui = context.getBean(StartUI.class);
+        ui.add("Ivan Ivanov");
+        ui.print();
     }
 }
